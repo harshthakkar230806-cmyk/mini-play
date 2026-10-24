@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mini Code Playground — write code, watch it come alive in 3D</title>
+<meta name="description" content="Write HTML, CSS and JavaScript in separate editors and see the result instantly. Download projects as ZIP and share code as a link.">
+<meta name="theme-color" content="#05060f">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-size='16' font-weight='700' text-anchor='middle' fill='white' font-family='monospace'%3E%7B%7D%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main id="app" class="state-intro">
+
+  <!-- ============ INTRO ============ -->
+  <section id="hero">
+    <div class="fc-layer" aria-hidden="true">
+      <div class="fc-wrap fw1" data-depth="26"><div class="fcard">
+        <div class="fc-bar"><b style="background:#ff7a59"></b>index.html</div>
+<pre><span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"orb"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h1&gt;</span>Hello 3D<span class="t">&lt;/h1&gt;</span>
+<span class="t">&lt;/div&gt;</span></pre>
+      </div></div>
+      <div class="fc-wrap fw2" data-depth="44"><div class="fcard">
+        <div class="fc-bar"><b style="background:#4cc9f0"></b>style.css</div>
+<pre><span class="p">.orb</span> {
+  <span class="a">transform</span>: <span class="k">rotateY</span>(<span class="n">25deg</span>);
+  <span class="a">perspective</span>: <span class="n">800px</span>;
+}</pre>
+      </div></div>
+      <div class="fc-wrap fw3" data-depth="34"><div class="fcard">
+        <div class="fc-bar"><b style="background:#ffd166"></b>script.js</div>
+<pre><span class="k">const</span> orb = <span class="k">document</span>
+  .<span class="p">querySelector</span>(<span class="s">'.orb'</span>);
+orb.<span class="p">onclick</span> = () =&gt; <span class="p">spin</span>();</pre>
+      </div></div>
+    </div>
+
+    <div class="hero-core">
+      <h1 class="hero-title"><span class="l1">Mini Code</span><span class="l2">Playground</span></h1>
+      <p class="hero-sub">Write HTML, CSS and JavaScript in three separate editors and watch the result come alive the moment you type.</p>
+      <div class="cta">
+        <button class="btn-hero" id="enter" type="button"><span>Enter the studio</span></button>
+        <button class="btn-ghost" id="enterTpl" type="button">See a live demo</button>
+      </div>
+      <ul class="feats">
+        <li>Live preview</li>
+        <li>Download as ZIP</li>
+        <li>Share as a link</li>
+        <li>Works on phone &amp; laptop</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ STUDIO ============ -->
+  <section id="studio" inert>
+    <header class="topbar">
+      <button class="brand" id="home" type="button" title="Back to intro">
+        <span class="logo3d" aria-hidden="true"><i><b></b><b></b><b></b><b></b><b></b><b></b></i></span>
+        <span class="brand-t">Mini Code <em>Playground</em></span>
+      </button>
+
+      <div class="actions">
+        <div class="menu-wrap">
+          <button class="btn" id="tplBtn" type="button" aria-haspopup="true" aria-expanded="false" title="Templates">
+            <span class="ico" data-i="layers"></span><span class="lbl">Templates</span>
+          </button>
+          <div class="menu" id="tplMenu" hidden></div>
+        </div>
+        <button class="btn toggle on" id="autoBtn" type="button" aria-pressed="true" title="Run automatically while typing">
+          <span class="ico" data-i="zap"></span><span class="lbl">Auto-run</span><span class="sw" aria-hidden="true"></span>
+        </button>
+        <button class="btn hide-m" id="layoutBtn" type="button" title="Switch layout">
+          <span class="ico" data-i="layout"></span><span class="lbl">Layout</span>
+        </button>
+        <button class="btn" id="resetBtn" type="button" title="Reset project">
+          <span class="ico" data-i="reset"></span><span class="lbl">Reset</span>
+        </button>
+        <button class="btn" id="shareBtn" type="button" title="Copy shareable link">
+          <span class="ico" data-i="share"></span><span class="lbl">Share</span>
+        </button>
+        <button class="btn" id="dlBtn" type="button" title="Download project as ZIP">
+          <span class="ico" data-i="download"></span><span class="lbl">Download</span>
+        </button>
+        <button class="btn primary" id="runBtn" type="button" title="Run (Ctrl/Cmd + Enter)">
+          <span class="ico" data-i="play"></span><span class="lbl">Run</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="workspace" id="workspace">
+      <div class="editors" id="editors">
+        <article class="panel active" data-pane="html" style="--accent:var(--html);--d:.12s">
+          <header class="ph">
+            <span class="dot"></span><span class="name">index.html</span><span class="tag">HTML</span><span class="sp"></span>
+            <button class="mini" data-copy="html" type="button" title="Copy code"><span class="ico" data-i="copy"></span></button>
+            <button class="mini" data-clear="html" type="button" title="Clear editor"><span class="ico" data-i="trash"></span></button>
+          </header>
+          <div class="pb" id="ed-html"></div>
+        </article>
+
+        <article class="panel" data-pane="css" style="--accent:var(--css);--d:.24s">
+          <header class="ph">
+            <span class="dot"></span><span class="name">style.css</span><span class="tag">CSS</span><span class="sp"></span>
+            <button class="mini" data-copy="css" type="button" title="Copy code"><span class="ico" data-i="copy"></span></button>
+            <button class="mini" data-clear="css" type="button" title="Clear editor"><span class="ico" data-i="trash"></span></button>
+          </header>
+          <div class="pb" id="ed-css"></div>
+        </article>
+
+        <article class="panel" data-pane="js" style="--accent:var(--js);--d:.36s">
+          <header class="ph">
+            <span class="dot"></span><span class="name">script.js</span><span class="tag">JS</span><span class="sp"></span>
+            <button class="mini" data-copy="js" type="button" title="Copy code"><span class="ico" data-i="copy"></span></button>
+            <button class="mini" data-clear="js" type="button" title="Clear editor"><span class="ico" data-i="trash"></span></button>
+          </header>
+          <div class="pb" id="ed-js"></div>
+        </article>
+      </div>
+
+      <div class="gutter" id="gutter" role="separator" aria-label="Resize panels" tabindex="0"><i></i></div>
+
+      <article class="panel preview" data-pane="preview" style="--accent:var(--v);--d:.48s">
+        <header class="ph">
+          <span class="dot"></span><span class="name">Live preview</span><span class="sp"></span>
+          <div class="devices hide-m" role="group" aria-label="Preview size">
+            <button class="mini on" data-device="full" type="button" title="Full width"><span class="ico" data-i="monitor"></span></button>
+            <button class="mini" data-device="tablet" type="button" title="Tablet"><span class="ico" data-i="tablet"></span></button>
+            <button class="mini" data-device="phone" type="button" title="Phone"><span class="ico" data-i="phone"></span></button>
+          </div>
+          <button class="mini badge-wrap" id="consoleBtn" type="button" title="Console" aria-pressed="false">
+            <span class="ico" data-i="terminal"></span><span class="badge" id="errBadge" hidden>0</span>
+          </button>
+          <button class="mini" id="openBtn" type="button" title="Open in new tab"><span class="ico" data-i="external"></span></button>
+        </header>
+        <div class="pb preview-body">
+          <div class="frame-wrap" id="frameWrap" data-device="full">
+            <iframe id="frame" title="Live preview" sandbox="allow-scripts allow-modals allow-forms allow-popups allow-pointer-lock"></iframe>
+          </div>
+          <div class="console" id="console">
+            <div class="ch"><span>Console</span><button class="mini" id="clearLog" type="button" title="Clear console"><span class="ico" data-i="trash"></span></button></div>
+            <div class="cl" id="logs"><div class="empty">console.log() output from your script shows up here.</div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <nav class="mnav" id="mnav" aria-label="Panels">
+      <span class="ind" aria-hidden="true"></span>
+      <button type="button" data-tab="html" class="on" style="--c:var(--html)"><i></i>HTML</button>
+      <button type="button" data-tab="css" style="--c:var(--css)"><i></i>CSS</button>
+      <button type="button" data-tab="js" style="--c:var(--js)"><i></i>JS</button>
+      <button type="button" data-tab="preview" style="--c:var(--v)"><i></i>Preview</button>
+    </nav>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Libraries (CDN) — all deferred, executed in order -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/xml-fold.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+<!-- Our code -->
+<script defer src="zip.js"></script>
+<script defer src="scene.js"></script>
+<script defer src="app.js"></script>
+</body>
+</html>
